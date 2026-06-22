@@ -57,12 +57,10 @@ export function ClientumNavbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="https://clientumcrm.com.ar"
-            target="_blank"
-            rel="noreferrer"
+            href="/portal"
             className="text-sm font-medium text-white/60 hover:text-white transition-colors"
           >
-            Dashboard
+            Mi portal
           </a>
           <a
             href="#contacto"

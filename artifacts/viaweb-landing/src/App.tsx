@@ -10,6 +10,7 @@ import { Pricing } from "@/components/sections/Pricing";
 import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Clients } from "@/components/sections/Clients";
+import { FloatingChat } from "@/components/layout/FloatingChat";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Linkedin } from "lucide-react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
@@ -206,6 +207,7 @@ function Home() {
         <CtaSection />
       </main>
       <Footer />
+      <FloatingChat />
     </div>
   );
 }

@@ -45,7 +45,9 @@ export function Navbar() {
 
         <div className="hidden md:flex items-center gap-3">
           <a
-            href="/portal"
+            href="https://cloud.viaweb.net.ar/viaweb/custom/externalaccess/www/"
+            target="_blank"
+            rel="noreferrer"
             className="text-sm font-medium text-secondary/70 hover:text-primary transition-colors"
           >
             Portal de Clientes
@@ -82,7 +84,9 @@ export function Navbar() {
               </a>
             ))}
             <a
-              href="/portal"
+              href="https://cloud.viaweb.net.ar/viaweb/custom/externalaccess/www/"
+              target="_blank"
+              rel="noreferrer"
               className="text-sm font-medium text-secondary/70 hover:text-primary py-2 transition-colors"
               onClick={() => setOpen(false)}
             >

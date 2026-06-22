@@ -44,14 +44,14 @@ function Footer() {
             <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Servicios</h4>
             <ul className="space-y-3">
               {[
-                { name: "Implementación ERP/CRM", href: "#planes" },
-                { name: "Desarrollo Web", href: "#servicios" },
-                { name: "E-commerce", href: "#servicios" },
-                { name: "Cloud Hosting", href: "#servicios" },
-                { name: "SEO & SEM", href: "#servicios" },
+                { name: "Implementación ERP/CRM", href: "https://viaweb.net.ar/implementaciones-erp-crm/", ext: true },
+                { name: "Desarrollo Web & E-commerce", href: "https://viaweb.net.ar/desarrollo-web-ecommerce/", ext: true },
+                { name: "SEO & SEM", href: "https://viaweb.net.ar/seo-sem-reportes/", ext: true },
+                { name: "Productos y planes", href: "https://viaweb.net.ar/productos/", ext: true },
+                { name: "Soporte técnico", href: "https://viaweb.tawk.help/", ext: true },
               ].map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} className="text-sm text-white/60 hover:text-primary transition-colors">
+                  <a href={item.href} target={item.ext ? "_blank" : undefined} rel={item.ext ? "noreferrer" : undefined} className="text-sm text-white/60 hover:text-primary transition-colors">
                     {item.name}
                   </a>
                 </li>
@@ -63,14 +63,14 @@ function Footer() {
             <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Empresa</h4>
             <ul className="space-y-3">
               {[
-                { name: "Historia", href: "/historia" },
-                { name: "Nuestros Clientes", href: "/clientes-2" },
-                { name: "Portal de Clientes", href: "https://cloud.viaweb.net.ar" },
-                { name: "Soporte", href: "/tickets" },
-                { name: "Blog", href: "/blog" },
+                { name: "Historia", href: "https://viaweb.net.ar/historia/", ext: true },
+                { name: "Nuestros Clientes", href: "https://viaweb.net.ar/clientes-2/", ext: true },
+                { name: "Portal de Clientes", href: "https://cloud.viaweb.net.ar/viaweb/custom/externalaccess/www/", ext: true },
+                { name: "Tickets de soporte", href: "https://viaweb.net.ar/tickets/", ext: true },
+                { name: "Blog", href: "https://viaweb.net.ar/blog/", ext: true },
               ].map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} className="text-sm text-white/60 hover:text-primary transition-colors">
+                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
                     {item.name}
                   </a>
                 </li>
@@ -89,7 +89,7 @@ function Footer() {
               </li>
               <li className="flex items-start gap-3">
                 <MessageCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
-                <a href="https://wa.me/send?phone=542984372962" target="_blank" rel="noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
+                <a href="https://wa.me/send?phone=542984372962&text=¡Hola! Quiero hacer una consulta." target="_blank" rel="noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
                   WhatsApp
                 </a>
               </li>
@@ -106,10 +106,10 @@ function Footer() {
             &copy; {new Date().getFullYear()} Viaweb. Todos los derechos reservados.
           </p>
           <div className="flex gap-6">
-            <a href="/terminos-de-uso" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="https://viaweb.net.ar/terminos-de-uso/" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Términos de Uso
             </a>
-            <a href="/politicas-de-privacidad" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="https://viaweb.net.ar/politicas-de-privacidad/" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Política de Privacidad
             </a>
           </div>
@@ -137,7 +137,9 @@ function CtaSection() {
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
-              href="/meetings"
+              href="https://viaweb.net.ar/meetings"
+              target="_blank"
+              rel="noreferrer"
               className="inline-flex items-center gap-2 bg-white text-primary font-bold px-8 py-4 rounded-full text-base shadow-xl hover:bg-white/90 transition-all"
             >
               Agendar Reunión Gratis

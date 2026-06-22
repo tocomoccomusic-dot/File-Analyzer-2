@@ -3,47 +3,51 @@ import { CheckCircle2, MessageCircle } from "lucide-react";
 
 const plans = [
   {
-    name: "Inicial",
-    price: "Consultá",
-    description: "Para pequeñas empresas que empiezan a digitalizar.",
+    name: "Minorista",
+    price: "Plan ERP/CRM",
+    description: "Para pequeñas empresas que empiezan a digitalizar sus procesos.",
     features: [
-      "Sitio web institucional",
-      "Hosting básico incluido",
-      "Soporte por email",
-      "1 casilla de correo",
+      "ERP/CRM básico",
+      "Hosting incluido",
+      "Soporte por ticket",
+      "Casillas de correo",
       "SSL incluido",
+      "Capacitación inicial",
     ],
-    cta: "Consultar precio",
+    cta: "Ver plan",
+    href: "https://viaweb.net.ar/producto/plan-erp-crm-minorista-pagado-cada-un-mes/",
     featured: false,
   },
   {
-    name: "Profesional",
-    price: "Consultá",
-    description: "La elección de la mayoría de nuestros clientes.",
+    name: "Mayorista",
+    price: "Plan ERP/CRM",
+    description: "La elección de la mayoría de nuestros clientes en crecimiento.",
     features: [
-      "Todo el plan Inicial",
-      "E-commerce o ERP básico",
+      "ERP/CRM completo",
+      "Portal de clientes",
       "Hosting profesional",
       "Soporte prioritario",
-      "5 casillas de correo",
+      "Casillas ilimitadas",
       "Capacitación incluida",
     ],
-    cta: "Consultar precio",
+    cta: "Ver plan",
+    href: "https://viaweb.net.ar/producto/plan-erp-crm-mayorista-pagado-cada-un-mes/",
     featured: true,
   },
   {
-    name: "Mayorista",
+    name: "Personalizado",
     price: "A medida",
-    description: "Soluciones completas para empresas en crecimiento.",
+    description: "Soluciones a medida para empresas con necesidades especiales.",
     features: [
-      "Todo el plan Profesional",
-      "ERP/CRM a medida",
+      "ERP/CRM personalizado",
+      "Desarrollo a medida",
       "Apps móviles",
-      "Soporte 24/7",
-      "Casillas ilimitadas",
-      "Gerente de cuenta asignado",
+      "Soporte dedicado",
+      "Infraestructura propia",
+      "Gerente de cuenta",
     ],
-    cta: "Hablar con ventas",
+    cta: "Consultar",
+    href: "https://viaweb.net.ar/producto/plan-erp-crm-personalizado-pagado-cada-un-mes/",
     featured: false,
   },
 ];
@@ -109,7 +113,7 @@ export function Pricing() {
               </ul>
 
               <a
-                href="https://wa.me/send?phone=542984372962&text=Hola, quiero consultar por el plan."
+                href={plan.href}
                 target="_blank"
                 rel="noreferrer"
                 className={`inline-flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-full text-sm transition-all ${

@@ -1,115 +1,128 @@
 import { motion } from "framer-motion";
-import { Check, Info } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Link } from "wouter";
+import { CheckCircle2, MessageCircle } from "lucide-react";
 
 const plans = [
   {
-    name: "Minorista",
-    target: "Para comercios al por menor",
-    description: "Gestión ágil de punto de venta, control de stock y facturación electrónica.",
+    name: "Inicial",
+    price: "Consultá",
+    description: "Para pequeñas empresas que empiezan a digitalizar.",
     features: [
-      "Facturación electrónica AFIP",
-      "Control de inventario básico",
-      "Caja diaria y reportes",
-      "Soporte por ticket",
-      "Actualizaciones incluidas"
+      "Sitio web institucional",
+      "Hosting básico incluido",
+      "Soporte por email",
+      "1 casilla de correo",
+      "SSL incluido",
     ],
-    popular: false
+    cta: "Consultar precio",
+    featured: false,
+  },
+  {
+    name: "Profesional",
+    price: "Consultá",
+    description: "La elección de la mayoría de nuestros clientes.",
+    features: [
+      "Todo el plan Inicial",
+      "E-commerce o ERP básico",
+      "Hosting profesional",
+      "Soporte prioritario",
+      "5 casillas de correo",
+      "Capacitación incluida",
+    ],
+    cta: "Consultar precio",
+    featured: true,
   },
   {
     name: "Mayorista",
-    target: "Para distribuidoras",
-    description: "Control avanzado de depósitos, listas de precios múltiples y gestión de vendedores.",
+    price: "A medida",
+    description: "Soluciones completas para empresas en crecimiento.",
     features: [
-      "Todo lo del plan Minorista",
-      "Múltiples listas de precios",
-      "Gestión de preventistas/vendedores",
-      "Cuentas corrientes",
-      "Soporte prioritario WhatsApp"
+      "Todo el plan Profesional",
+      "ERP/CRM a medida",
+      "Apps móviles",
+      "Soporte 24/7",
+      "Casillas ilimitadas",
+      "Gerente de cuenta asignado",
     ],
-    popular: true
+    cta: "Hablar con ventas",
+    featured: false,
   },
-  {
-    name: "Personalizado",
-    target: "Para industrias y pymes complejas",
-    description: "Implementación a medida con módulos específicos según las reglas de tu negocio.",
-    features: [
-      "Análisis de procesos",
-      "Desarrollo de módulos a medida",
-      "Integraciones con terceros",
-      "Capacitación presencial/virtual",
-      "Account Manager dedicado"
-    ],
-    popular: false
-  }
 ];
 
 export function Pricing() {
   return (
-    <section id="planes" className="py-24 bg-slate-50 border-y border-gray-100">
+    <section id="planes" className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="text-primary font-semibold tracking-wider uppercase text-sm">ERP & CRM</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary mt-2 mb-4">Planes de Implementación</h2>
-          <p className="text-lg text-gray-600">
-            Suscripciones mensuales sin sorpresas. Escalamos el software al ritmo del crecimiento de tu empresa.
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-xs font-bold text-primary uppercase tracking-widest">Planes</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-secondary mt-2 mb-4">
+            Precios adaptados a tu empresa
+          </h2>
+          <p className="text-secondary/60 text-lg leading-relaxed">
+            Nuestros precios son en pesos argentinos y se adaptan al tamaño y necesidades de cada empresa. Consultanos sin compromiso.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {plans.map((plan, i) => (
             <motion.div
               key={plan.name}
+              className={`relative rounded-2xl p-8 flex flex-col ${
+                plan.featured
+                  ? "bg-primary text-white shadow-2xl shadow-primary/30 scale-105"
+                  : "bg-white border border-gray-100 shadow-md"
+              }`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              className={`relative bg-white rounded-3xl p-8 border ${
-                plan.popular ? "border-primary shadow-xl shadow-primary/10" : "border-gray-200 shadow-sm"
-              } flex flex-col`}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
             >
-              {plan.popular && (
-                <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-primary text-white px-4 py-1 rounded-full text-sm font-semibold">
-                  Más Elegido
-                </div>
+              {plan.featured && (
+                <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-amber-400 text-secondary text-xs font-bold px-4 py-1 rounded-full shadow-md">
+                  Más elegido
+                </span>
               )}
-              
-              <div className="mb-8">
-                <h3 className="text-2xl font-bold text-secondary mb-1">Plan {plan.name}</h3>
-                <p className="text-sm text-primary font-medium mb-4">{plan.target}</p>
-                <p className="text-gray-600 text-sm h-12">{plan.description}</p>
+              <div className="mb-6">
+                <h3 className={`text-lg font-bold mb-1 ${plan.featured ? "text-white" : "text-secondary"}`}>
+                  {plan.name}
+                </h3>
+                <p className={`text-3xl font-extrabold mb-2 ${plan.featured ? "text-white" : "text-secondary"}`}>
+                  {plan.price}
+                </p>
+                <p className={`text-sm ${plan.featured ? "text-white/70" : "text-secondary/60"}`}>
+                  {plan.description}
+                </p>
               </div>
 
-              <div className="flex-grow space-y-4 mb-8">
-                {plan.features.map((feature, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <div className="mt-0.5 rounded-full bg-green-100 p-1">
-                      <Check className="h-3 w-3 text-green-600" strokeWidth={3} />
-                    </div>
-                    <span className="text-gray-700 text-sm">{feature}</span>
-                  </div>
+              <ul className="space-y-3 mb-8 flex-1">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-start gap-2.5">
+                    <CheckCircle2 className={`h-4 w-4 shrink-0 mt-0.5 ${plan.featured ? "text-amber-300" : "text-primary"}`} />
+                    <span className={`text-sm ${plan.featured ? "text-white/90" : "text-secondary/70"}`}>{feature}</span>
+                  </li>
                 ))}
-              </div>
+              </ul>
 
-              <div className="mt-auto pt-6 border-t border-gray-100">
-                <Button 
-                  className="w-full rounded-full h-12" 
-                  variant={plan.popular ? "default" : "outline"}
-                  asChild
-                >
-                  <Link href="/productos">Ver detalles</Link>
-                </Button>
-              </div>
+              <a
+                href="https://wa.me/send?phone=542984372962&text=Hola, quiero consultar por el plan."
+                target="_blank"
+                rel="noreferrer"
+                className={`inline-flex items-center justify-center gap-2 font-bold py-3 px-6 rounded-full text-sm transition-all ${
+                  plan.featured
+                    ? "bg-white text-primary hover:bg-white/90"
+                    : "bg-primary text-white hover:bg-primary/90 shadow-md shadow-primary/20"
+                }`}
+              >
+                <MessageCircle className="h-4 w-4" />
+                {plan.cta}
+              </a>
             </motion.div>
           ))}
-        </div>
-        
-        <div className="mt-12 text-center">
-          <p className="text-sm text-gray-500 flex items-center justify-center gap-2">
-            <Info className="h-4 w-4" /> 
-            Consultá por descuentos en pagos anuales o semestrales.
-          </p>
         </div>
       </div>
     </section>

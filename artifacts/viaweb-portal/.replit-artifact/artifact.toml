@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/portal/"
+title = "Portal de Clientes Viaweb"
+version = "1.0.0"
+id = "artifacts/viaweb-portal"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/portal/" ]
+localPort = 24950
+
+[services.development]
+run = "pnpm --filter @workspace/viaweb-portal run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/viaweb-portal", "run", "build" ]
+publicDir = "artifacts/viaweb-portal/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "24950"
+BASE_PATH = "/portal/"

@@ -1,99 +1,103 @@
-import { Link } from "wouter";
-import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
 import { useState, useEffect } from "react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { label: "Servicios", href: "#servicios" },
+  { label: "Nosotros", href: "#nosotros" },
+  { label: "Planes", href: "#planes" },
+  { label: "Contacto", href: "#contacto" },
+];
 
 export function Navbar() {
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const navLinks = [
-    { name: "Servicios", href: "#servicios" },
-    { name: "Planes ERP", href: "#planes" },
-    { name: "Nosotros", href: "#nosotros" },
-  ];
 
   return (
     <header
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm py-3"
-          : "bg-transparent py-5"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
+        scrolled ? "bg-white/95 backdrop-blur-md shadow-sm border-b border-gray-100" : "bg-transparent"
       }`}
     >
-      <div className="container mx-auto px-4 md:px-6 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-2xl font-extrabold tracking-tighter text-secondary">
-              Via<span className="text-primary">web</span>
-            </span>
-          </Link>
-        </div>
+      <div className="container mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+        <a href="/" className="flex items-center">
+          <span className="text-2xl font-extrabold tracking-tighter text-secondary">
+            Via<span className="text-primary">web</span>
+          </span>
+        </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex items-center gap-8" aria-label="Menú principal">
           {navLinks.map((link) => (
             <a
-              key={link.name}
+              key={link.href}
               href={link.href}
-              className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+              className="text-sm font-medium text-secondary/70 hover:text-primary transition-colors"
             >
-              {link.name}
+              {link.label}
             </a>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
-          <a href="https://cloud.viaweb.net.ar" target="_blank" rel="noreferrer" className="text-sm font-medium text-gray-600 hover:text-primary transition-colors">
-            Portal Clientes
+        <div className="hidden md:flex items-center gap-3">
+          <a
+            href="/portal"
+            className="text-sm font-medium text-secondary/70 hover:text-primary transition-colors"
+          >
+            Portal de Clientes
           </a>
-          <Button asChild className="rounded-full px-6 font-medium shadow-md hover:shadow-lg transition-all">
-            <Link href="/meetings">Agendar Reunión</Link>
-          </Button>
+          <a
+            href="#contacto"
+            className="text-sm font-bold bg-primary text-white px-5 py-2 rounded-full hover:bg-primary/90 transition-all shadow-md shadow-primary/20"
+          >
+            Consultar ahora
+          </a>
         </div>
 
-        {/* Mobile Nav */}
-        <div className="md:hidden">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-gray-600">
-                <Menu className="h-6 w-6" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] flex flex-col pt-12">
-              <nav className="flex flex-col gap-6">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    className="text-lg font-medium text-gray-800"
-                  >
-                    {link.name}
-                  </a>
-                ))}
-                <div className="h-px w-full bg-gray-200 my-2" />
-                <a href="https://cloud.viaweb.net.ar" target="_blank" rel="noreferrer" className="text-lg font-medium text-gray-800">
-                  Portal Clientes
-                </a>
-                <a href="/tickets" className="text-lg font-medium text-gray-800">
-                  Soporte
-                </a>
-                <Button asChild className="mt-4 rounded-full w-full">
-                  <Link href="/meetings">Agendar Reunión</Link>
-                </Button>
-              </nav>
-            </SheetContent>
-          </Sheet>
-        </div>
+        <button
+          type="button"
+          className="md:hidden p-2 text-secondary"
+          onClick={() => setOpen(!open)}
+          aria-label={open ? "Cerrar menú" : "Abrir menú"}
+        >
+          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </button>
       </div>
+
+      {open && (
+        <div className="md:hidden bg-white border-t border-gray-100 shadow-lg">
+          <div className="container mx-auto px-4 py-4 flex flex-col gap-1">
+            {navLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-secondary/70 hover:text-primary py-2 transition-colors"
+                onClick={() => setOpen(false)}
+              >
+                {link.label}
+              </a>
+            ))}
+            <a
+              href="/portal"
+              className="text-sm font-medium text-secondary/70 hover:text-primary py-2 transition-colors"
+              onClick={() => setOpen(false)}
+            >
+              Portal de Clientes
+            </a>
+            <a
+              href="#contacto"
+              className="mt-2 text-sm font-bold bg-primary text-white px-5 py-2.5 rounded-full text-center"
+              onClick={() => setOpen(false)}
+            >
+              Consultar ahora
+            </a>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

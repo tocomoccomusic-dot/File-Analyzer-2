@@ -1,65 +1,82 @@
 import { motion } from "framer-motion";
-import { Server, MonitorSmartphone, CloudCog, TrendingUp } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { BarChart2, Globe, ShoppingCart, Cloud, Search, Smartphone } from "lucide-react";
 
 const services = [
   {
-    icon: Server,
-    title: "Implementación ERP / CRM",
-    description: "Despliegue completo de sistemas de gestión empresarial. Desde comercios minoristas hasta distribuidoras mayoristas, adaptamos la herramienta a tus procesos.",
-    color: "bg-blue-50 text-blue-600"
+    icon: BarChart2,
+    title: "Implementación ERP & CRM",
+    description: "Odoo, SAP Business One y soluciones a medida. Optimizamos tus procesos internos desde ventas hasta contabilidad.",
+    color: "bg-orange-50 text-primary",
   },
   {
-    icon: MonitorSmartphone,
-    title: "Desarrollo Web & E-commerce",
-    description: "Diseño y desarrollo de sitios web institucionales y tiendas online a medida. Escalables, rápidos y optimizados para conversión.",
-    color: "bg-orange-50 text-orange-600"
+    icon: Globe,
+    title: "Desarrollo Web",
+    description: "Sitios institucionales, landing pages y aplicaciones web a medida. Diseño moderno, rápido y adaptado a tu marca.",
+    color: "bg-blue-50 text-blue-600",
   },
   {
-    icon: CloudCog,
-    title: "Soluciones Cloud",
-    description: "Alojamiento en la nube seguro y confiable para las operaciones de tu negocio. Alta disponibilidad sin los costos de infraestructura física.",
-    color: "bg-indigo-50 text-indigo-600"
+    icon: ShoppingCart,
+    title: "E-commerce",
+    description: "Tiendas online con Tiendanube, WooCommerce o desarrollo propio. Integramos medios de pago argentinos.",
+    color: "bg-green-50 text-green-600",
   },
   {
-    icon: TrendingUp,
-    title: "SEO & SEM",
-    description: "Posicionamiento en buscadores y campañas de marketing digital con reportes claros. Hacemos que tus clientes te encuentren primero.",
-    color: "bg-emerald-50 text-emerald-600"
-  }
+    icon: Cloud,
+    title: "Cloud Hosting",
+    description: "Servidores VPS, hosting administrado y soluciones de infraestructura en la nube con SLA garantizado.",
+    color: "bg-sky-50 text-sky-600",
+  },
+  {
+    icon: Search,
+    title: "SEO & Marketing Digital",
+    description: "Posicionamiento orgánico, Google Ads y estrategias digitales para aumentar tu visibilidad online.",
+    color: "bg-violet-50 text-violet-600",
+  },
+  {
+    icon: Smartphone,
+    title: "Aplicaciones Móviles",
+    description: "Apps nativas y PWA para iOS y Android. Extendé tu negocio a los smartphones de tus clientes.",
+    color: "bg-rose-50 text-rose-600",
+  },
 ];
 
 export function Services() {
   return (
-    <section id="servicios" className="py-24 bg-white relative">
+    <section id="servicios" className="py-24 bg-white">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-4">Soluciones Integrales</h2>
-          <p className="text-lg text-gray-600">
-            Cubrimos todas las necesidades tecnológicas de tu empresa para que puedas enfocarte en lo que mejor hacés: hacer crecer tu negocio.
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-xs font-bold text-primary uppercase tracking-widest">Servicios</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-secondary mt-2 mb-4">
+            Todo lo que tu empresa necesita
+          </h2>
+          <p className="text-secondary/60 text-lg leading-relaxed">
+            Soluciones tecnológicas integrales para pymes y empresas en crecimiento. Desde la estrategia hasta la implementación.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {services.map((service, index) => (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {services.map((service, i) => (
             <motion.div
               key={service.title}
+              className="bg-white border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <Card className="h-full border-none shadow-sm hover:shadow-md transition-shadow bg-gray-50/50">
-                <CardContent className="p-8">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${service.color}`}>
-                    <service.icon className="h-7 w-7" />
-                  </div>
-                  <h3 className="text-xl font-bold text-secondary mb-3">{service.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {service.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <div className={`w-12 h-12 rounded-xl ${service.color} flex items-center justify-center mb-4`}>
+                <service.icon className="h-6 w-6" />
+              </div>
+              <h3 className="text-lg font-bold text-secondary mb-2 group-hover:text-primary transition-colors">
+                {service.title}
+              </h3>
+              <p className="text-sm text-secondary/60 leading-relaxed">{service.description}</p>
             </motion.div>
           ))}
         </div>

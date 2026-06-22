@@ -1,310 +1,175 @@
 import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Phone, MessageCircle, Clock, CheckCircle2 } from "lucide-react";
-import { useState } from "react";
+import { z } from "zod/v4";
+import { MessageCircle, Phone, MapPin, Clock } from "lucide-react";
 
-const contactSchema = z.object({
-  nombre: z.string().min(2, "El nombre debe tener al menos 2 caracteres"),
-  empresa: z.string().min(2, "El nombre de empresa debe tener al menos 2 caracteres"),
-  email: z.string().email("Ingresá un email válido"),
-  telefono: z.string().optional(),
-  servicio: z.string({ required_error: "Seleccioná un servicio de tu interés" }),
-  mensaje: z.string().min(10, "El mensaje debe tener al menos 10 caracteres"),
+const schema = z.object({
+  name: z.string().min(2, "Ingresá tu nombre completo"),
+  company: z.string().optional(),
+  email: z.string().email("Email inválido"),
+  phone: z.string().min(8, "Ingresá un teléfono válido"),
+  message: z.string().min(10, "Contanos un poco más sobre tu consulta"),
 });
 
-type ContactFormValues = z.infer<typeof contactSchema>;
+type FormData = z.infer<typeof schema>;
 
-const servicios = [
-  { value: "erp-minorista", label: "ERP/CRM — Plan Minorista" },
-  { value: "erp-mayorista", label: "ERP/CRM — Plan Mayorista" },
-  { value: "erp-personalizado", label: "ERP/CRM — Plan Personalizado" },
-  { value: "desarrollo-web", label: "Desarrollo Web / E-commerce" },
-  { value: "cloud", label: "Soluciones Cloud" },
-  { value: "seo-sem", label: "SEO & SEM" },
-  { value: "otro", label: "Otro / Consulta general" },
-];
+function buildWhatsAppMessage(data: FormData): string {
+  const lines = [
+    `*Nueva consulta desde viaweb.net.ar*`,
+    ``,
+    `*Nombre:* ${data.name}`,
+    data.company ? `*Empresa:* ${data.company}` : null,
+    `*Email:* ${data.email}`,
+    `*Teléfono:* ${data.phone}`,
+    ``,
+    `*Mensaje:*`,
+    data.message,
+  ]
+    .filter(Boolean)
+    .join("\n");
+  return encodeURIComponent(lines);
+}
 
 export function Contact() {
-  const [sent, setSent] = useState(false);
-
-  const form = useForm<ContactFormValues>({
-    resolver: zodResolver(contactSchema),
-    defaultValues: {
-      nombre: "",
-      empresa: "",
-      email: "",
-      telefono: "",
-      servicio: "",
-      mensaje: "",
-    },
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(schema),
   });
 
-  function onSubmit(values: ContactFormValues) {
-    const text = [
-      `*Nueva consulta desde viaweb.net.ar*`,
-      ``,
-      `*Nombre:* ${values.nombre}`,
-      `*Empresa:* ${values.empresa}`,
-      `*Email:* ${values.email}`,
-      values.telefono ? `*Teléfono:* ${values.telefono}` : null,
-      `*Servicio de interés:* ${servicios.find((s) => s.value === values.servicio)?.label ?? values.servicio}`,
-      ``,
-      `*Consulta:*`,
-      values.mensaje,
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    const url = `https://wa.me/542984372962?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener,noreferrer");
-    setSent(true);
-    form.reset();
-  }
+  const onSubmit = (data: FormData) => {
+    const message = buildWhatsAppMessage(data);
+    window.open(`https://wa.me/542984372962?text=${message}`, "_blank", "noreferrer");
+  };
 
   return (
-    <section id="contacto" className="py-24 bg-white">
+    <section id="contacto" className="py-24 bg-gray-50">
       <div className="container mx-auto px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-16 max-w-6xl mx-auto">
-          {/* Left column — info */}
+        <motion.div
+          className="text-center max-w-2xl mx-auto mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-xs font-bold text-primary uppercase tracking-widest">Contacto</span>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-secondary mt-2 mb-4">
+            Hablemos de tu proyecto
+          </h2>
+          <p className="text-secondary/60 text-lg leading-relaxed">
+            Completá el formulario y te respondemos por WhatsApp en menos de 24 horas.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 max-w-5xl mx-auto">
+          {/* Contact info */}
           <motion.div
+            className="lg:col-span-2 space-y-6"
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="lg:col-span-2 flex flex-col justify-center"
           >
-            <span className="text-primary font-semibold tracking-wider uppercase text-sm mb-3">
-              Contacto
-            </span>
-            <h2 className="text-3xl md:text-4xl font-bold text-secondary mb-6 leading-tight">
-              Hablemos de tu empresa.
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-10">
-              Completá el formulario y te respondemos por WhatsApp. Sin presiones, sin ventas agresivas — solo una charla para entender si podemos ayudarte.
-            </p>
-
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Phone className="h-5 w-5 text-primary" />
-                </div>
-                <div>
-                  <p className="font-semibold text-secondary text-sm">Teléfono</p>
-                  <a href="tel:+5492984372962" className="text-gray-600 hover:text-primary transition-colors text-sm">
-                    +54 (298) 437-2962
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-green-50 flex items-center justify-center shrink-0">
-                  <MessageCircle className="h-5 w-5 text-green-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-secondary text-sm">WhatsApp</p>
-                  <a
-                    href="https://wa.me/send?phone=542984372962&text=¡Hola! Quiero hacer una consulta."
-                    target="_blank"
-                    rel="noreferrer"
-                    className="text-gray-600 hover:text-primary transition-colors text-sm"
-                  >
-                    Chatear ahora
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-11 h-11 rounded-2xl bg-blue-50 flex items-center justify-center shrink-0">
-                  <Clock className="h-5 w-5 text-blue-600" />
-                </div>
-                <div>
-                  <p className="font-semibold text-secondary text-sm">Horario de atención</p>
-                  <p className="text-gray-600 text-sm">Lunes a Viernes, 8:00 — 18:00 (ARG)</p>
-                </div>
+            <div>
+              <h3 className="text-xl font-bold text-secondary mb-4">Información de contacto</h3>
+              <div className="space-y-4">
+                {[
+                  { icon: Phone, label: "+54 (298) 437-2962", href: "tel:+5492984372962" },
+                  { icon: MessageCircle, label: "WhatsApp disponible", href: "https://wa.me/send?phone=542984372962" },
+                  { icon: MapPin, label: "Patagonia, Argentina", href: undefined },
+                  { icon: Clock, label: "Lun–Vie: 9 a 18 hs", href: undefined },
+                ].map((item) => (
+                  <div key={item.label} className="flex items-center gap-3">
+                    <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shrink-0">
+                      <item.icon className="h-5 w-5 text-primary" />
+                    </div>
+                    {item.href ? (
+                      <a href={item.href} className="text-sm font-medium text-secondary/80 hover:text-primary transition-colors">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <span className="text-sm font-medium text-secondary/80">{item.label}</span>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </motion.div>
 
-          {/* Right column — form */}
+          {/* Form */}
           <motion.div
+            className="lg:col-span-3"
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="lg:col-span-3"
+            transition={{ duration: 0.6, delay: 0.1 }}
           >
-            <div className="bg-slate-50 rounded-3xl p-8 md:p-10 border border-gray-100">
-              {sent ? (
-                <div className="flex flex-col items-center justify-center py-16 text-center">
-                  <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mb-6">
-                    <CheckCircle2 className="h-8 w-8 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-secondary mb-3">¡Consulta enviada!</h3>
-                  <p className="text-gray-600 mb-6 max-w-sm">
-                    Se abrió WhatsApp con tu mensaje. Si no se abrió automáticamente, escribinos directamente al <strong>+54 298 437-2962</strong>.
-                  </p>
-                  <Button variant="outline" className="rounded-full" onClick={() => setSent(false)}>
-                    Enviar otra consulta
-                  </Button>
+            <form onSubmit={handleSubmit(onSubmit)} className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 space-y-5">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-secondary mb-1.5">Nombre *</label>
+                  <input
+                    {...register("name")}
+                    placeholder="Tu nombre completo"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-secondary placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  />
+                  {errors.name && <p className="text-xs text-red-500 mt-1">{errors.name.message}</p>}
                 </div>
-              ) : (
-                <Form {...form}>
-                  <form
-                    onSubmit={form.handleSubmit(onSubmit)}
-                    className="space-y-5"
-                    data-testid="form-contact"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <FormField
-                        control={form.control}
-                        name="nombre"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-secondary font-medium">Nombre *</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Juan García"
-                                className="bg-white border-gray-200 rounded-xl h-11"
-                                data-testid="input-nombre"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="empresa"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-secondary font-medium">Empresa *</FormLabel>
-                            <FormControl>
-                              <Input
-                                placeholder="Mi Empresa S.A."
-                                className="bg-white border-gray-200 rounded-xl h-11"
-                                data-testid="input-empresa"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-secondary font-medium">Email *</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="email"
-                                placeholder="juan@empresa.com"
-                                className="bg-white border-gray-200 rounded-xl h-11"
-                                data-testid="input-email"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      <FormField
-                        control={form.control}
-                        name="telefono"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-secondary font-medium">Teléfono</FormLabel>
-                            <FormControl>
-                              <Input
-                                type="tel"
-                                placeholder="+54 9 298..."
-                                className="bg-white border-gray-200 rounded-xl h-11"
-                                data-testid="input-telefono"
-                                {...field}
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                    </div>
-
-                    <FormField
-                      control={form.control}
-                      name="servicio"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-secondary font-medium">Servicio de interés *</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
-                            <FormControl>
-                              <SelectTrigger
-                                className="bg-white border-gray-200 rounded-xl h-11"
-                                data-testid="select-servicio"
-                              >
-                                <SelectValue placeholder="Seleccioná un servicio..." />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent>
-                              {servicios.map((s) => (
-                                <SelectItem key={s.value} value={s.value}>
-                                  {s.label}
-                                </SelectItem>
-                              ))}
-                            </SelectContent>
-                          </Select>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <FormField
-                      control={form.control}
-                      name="mensaje"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-secondary font-medium">¿En qué te podemos ayudar? *</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Contanos brevemente sobre tu empresa y qué necesitás..."
-                              className="bg-white border-gray-200 rounded-xl min-h-[120px] resize-none"
-                              data-testid="textarea-mensaje"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="w-full rounded-full h-13 text-base font-semibold shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all"
-                      data-testid="button-submit"
-                    >
-                      <MessageCircle className="mr-2 h-5 w-5" />
-                      Enviar por WhatsApp
-                    </Button>
-
-                    <p className="text-xs text-center text-gray-400">
-                      Al enviar, se abrirá WhatsApp con tu consulta lista para enviar. No almacenamos tus datos.
-                    </p>
-                  </form>
-                </Form>
-              )}
-            </div>
+                <div>
+                  <label className="block text-sm font-semibold text-secondary mb-1.5">Empresa</label>
+                  <input
+                    {...register("company")}
+                    placeholder="Nombre de tu empresa"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-secondary placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  />
+                </div>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-semibold text-secondary mb-1.5">Email *</label>
+                  <input
+                    {...register("email")}
+                    type="email"
+                    placeholder="tu@empresa.com"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-secondary placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  />
+                  {errors.email && <p className="text-xs text-red-500 mt-1">{errors.email.message}</p>}
+                </div>
+                <div>
+                  <label className="block text-sm font-semibold text-secondary mb-1.5">Teléfono *</label>
+                  <input
+                    {...register("phone")}
+                    type="tel"
+                    placeholder="+54 9 ..."
+                    className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-secondary placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+                  />
+                  {errors.phone && <p className="text-xs text-red-500 mt-1">{errors.phone.message}</p>}
+                </div>
+              </div>
+              <div>
+                <label className="block text-sm font-semibold text-secondary mb-1.5">Mensaje *</label>
+                <textarea
+                  {...register("message")}
+                  rows={4}
+                  placeholder="Contanos sobre tu proyecto o consulta..."
+                  className="w-full border border-gray-200 rounded-xl px-4 py-2.5 text-sm text-secondary placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all resize-none"
+                />
+                {errors.message && <p className="text-xs text-red-500 mt-1">{errors.message.message}</p>}
+              </div>
+              <button
+                type="submit"
+                className="w-full flex items-center justify-center gap-2 bg-primary text-white font-bold py-3.5 rounded-xl hover:bg-primary/90 transition-all shadow-lg shadow-primary/20"
+              >
+                <MessageCircle className="h-4 w-4" />
+                Enviar por WhatsApp
+              </button>
+              <p className="text-xs text-secondary/40 text-center">
+                Al enviar abriremos WhatsApp con tu mensaje pre-cargado. Sin spam, sin datos a terceros.
+              </p>
+            </form>
           </motion.div>
         </div>
       </div>

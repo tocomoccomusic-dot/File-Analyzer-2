@@ -8,6 +8,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
 import { Pricing } from "@/components/sections/Pricing";
 import { About } from "@/components/sections/About";
+import { Contact } from "@/components/sections/Contact";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Linkedin } from "lucide-react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
@@ -197,6 +198,7 @@ function Home() {
         <Services />
         <About />
         <Pricing />
+        <Contact />
         <CtaSection />
       </main>
       <Footer />

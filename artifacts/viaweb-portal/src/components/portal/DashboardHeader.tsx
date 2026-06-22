@@ -2,6 +2,10 @@ import { Bell, ChevronDown } from "lucide-react";
 import { useUser } from "@clerk/react";
 import { useState } from "react";
 
+interface DashboardHeaderProps {
+  title?: string;
+}
+
 function getInitials(name: string | undefined | null, email: string | undefined | null): string {
   if (name) {
     return name.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase();
@@ -10,7 +14,7 @@ function getInitials(name: string | undefined | null, email: string | undefined 
   return "U";
 }
 
-export function DashboardHeader() {
+export function DashboardHeader({ title }: DashboardHeaderProps = {}) {
   const { user } = useUser();
   const [notifOpen, setNotifOpen] = useState(false);
 
@@ -20,7 +24,7 @@ export function DashboardHeader() {
   return (
     <header className="h-16 bg-white border-b border-border flex items-center px-6 gap-4 shrink-0" data-testid="dashboard-header">
       <div className="flex-1">
-        <h1 className="text-xl font-bold font-display text-foreground">Panel General</h1>
+        <h1 className="text-xl font-bold font-display text-foreground">{title ?? "Panel General"}</h1>
       </div>
 
       {/* Notification bell */}

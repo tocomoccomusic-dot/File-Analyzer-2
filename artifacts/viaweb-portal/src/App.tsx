@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import type React from "react";
 import { ClerkProvider, SignIn, SignUp, Show, useClerk } from "@clerk/react";
 import { publishableKeyFromHost } from "@clerk/react/internal";
 import { shadcn } from "@clerk/themes";
@@ -8,6 +9,10 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import DashboardPage from "@/pages/dashboard";
+import ProductosPage from "@/pages/productos";
+import TicketsPage from "@/pages/tickets";
+import FacturacionPage from "@/pages/facturacion";
+import SoportePage from "@/pages/soporte";
 
 const queryClient = new QueryClient();
 
@@ -135,18 +140,26 @@ function HomeRedirect() {
   );
 }
 
-function ProtectedDashboard() {
-  return (
-    <>
-      <Show when="signed-in">
-        <DashboardPage />
-      </Show>
-      <Show when="signed-out">
-        <Redirect to="/sign-in" />
-      </Show>
-    </>
-  );
+function protect(Page: React.ComponentType) {
+  return function ProtectedPage() {
+    return (
+      <>
+        <Show when="signed-in">
+          <Page />
+        </Show>
+        <Show when="signed-out">
+          <Redirect to="/sign-in" />
+        </Show>
+      </>
+    );
+  };
 }
+
+const ProtectedDashboard = protect(DashboardPage);
+const ProtectedProductos = protect(ProductosPage);
+const ProtectedTickets = protect(TicketsPage);
+const ProtectedFacturacion = protect(FacturacionPage);
+const ProtectedSoporte = protect(SoportePage);
 
 function ClerkProviderWithRoutes() {
   const [, setLocation] = useLocation();
@@ -183,7 +196,10 @@ function ClerkProviderWithRoutes() {
             <Route path="/sign-in/*?" component={SignInPage} />
             <Route path="/sign-up/*?" component={SignUpPage} />
             <Route path="/dashboard" component={ProtectedDashboard} />
-            <Route path="/dashboard/:rest*" component={ProtectedDashboard} />
+            <Route path="/dashboard/productos" component={ProtectedProductos} />
+            <Route path="/dashboard/tickets" component={ProtectedTickets} />
+            <Route path="/dashboard/facturacion" component={ProtectedFacturacion} />
+            <Route path="/dashboard/soporte" component={ProtectedSoporte} />
             <Route component={NotFound} />
           </Switch>
         </TooltipProvider>

@@ -11,6 +11,8 @@ import { About } from "@/components/sections/About";
 import { Contact } from "@/components/sections/Contact";
 import { Clients } from "@/components/sections/Clients";
 import { FloatingChat } from "@/components/layout/FloatingChat";
+import { Partners } from "@/components/sections/Partners";
+import { Blog } from "@/components/sections/Blog";
 import { motion } from "framer-motion";
 import { Phone, MapPin, MessageCircle, Linkedin } from "lucide-react";
 import { SiFacebook, SiInstagram } from "react-icons/si";
@@ -202,7 +204,9 @@ function Home() {
         <Services />
         <About />
         <Clients />
+        <Partners />
         <Pricing />
+        <Blog />
         <Contact />
         <CtaSection />
       </main>

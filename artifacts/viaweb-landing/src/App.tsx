@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
+import TerminosDeUso from "@/pages/terminos-de-uso";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -110,7 +111,7 @@ function Footer() {
             &copy; {new Date().getFullYear()} Viaweb. Todos los derechos reservados.
           </p>
           <div className="flex gap-6">
-            <a href="https://viaweb.net.ar/terminos-de-uso/" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="/terminos-de-uso" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Términos de Uso
             </a>
             <a href="https://viaweb.net.ar/politicas-de-privacidad/" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/70 transition-colors">
@@ -220,6 +221,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
+      <Route path="/terminos-de-uso" component={TerminosDeUso} />
       <Route component={NotFound} />
     </Switch>
   );

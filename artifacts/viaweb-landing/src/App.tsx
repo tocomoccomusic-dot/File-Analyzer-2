@@ -174,6 +174,97 @@ function CtaSection() {
   );
 }
 
+function ClientumSection() {
+  return (
+    <section className="py-20 bg-secondary text-white overflow-hidden relative">
+      <div className="absolute inset-0 opacity-10 bg-[radial-gradient(ellipse_at_bottom_left,_var(--tw-gradient-stops))] from-primary via-transparent to-transparent pointer-events-none" />
+      <div className="container mx-auto px-4 md:px-6 relative z-10">
+        {/* Badge */}
+        <div className="flex items-center gap-2 mb-6">
+          <span className="bg-primary/20 border border-primary/30 text-primary text-xs font-bold px-3 py-1 rounded-full uppercase tracking-widest">
+            Nuevo producto Viaweb
+          </span>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Left: copy */}
+          <div>
+            <h2 className="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+              Conocé <span className="text-primary">Clientum</span> —<br />
+              IA para PyMEs argentinas.
+            </h2>
+            <p className="text-white/70 text-lg mb-8 leading-relaxed">
+              Dejá de perder ventas por responder tarde. Automatizá consultas por WhatsApp,
+              generá presupuestos al instante y gestioná tus leads con IA, sin saber nada técnico.
+            </p>
+
+            {/* Mini feature list */}
+            <ul className="space-y-3 mb-10">
+              {[
+                "🤖 Chatbot IA que responde como humano en WhatsApp 24/7",
+                "📊 CRM simple: todos tus contactos y conversaciones en un lugar",
+                "🔗 Integración con AFIP, MercadoPago, Shopify y más",
+                "⚡ Setup completo en menos de 7 días, sin conocimientos técnicos",
+              ].map((item) => (
+                <li key={item} className="flex items-start gap-3 text-white/80 text-sm">
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="flex flex-col sm:flex-row gap-4">
+              <a
+                href="/clientum"
+                className="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold px-8 py-4 rounded-full text-base hover:bg-primary/90 transition-all shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
+              >
+                🚀 Ver Clientum completo
+              </a>
+              <a
+                href="https://wa.me/5492984510883?text=Hola%2C%20quiero%20mi%20diagn%C3%B3stico%20gratis%20de%20Clientum"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-2 border border-white/30 text-white font-semibold px-8 py-4 rounded-full text-base hover:bg-white/10 transition-all"
+              >
+                Diagnóstico gratis →
+              </a>
+            </div>
+          </div>
+
+          {/* Right: stats grid */}
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { value: "+500", label: "PyMEs activas", icon: "🏪" },
+              { value: "80%", label: "consultas automáticas", icon: "🤖" },
+              { value: "3 hs", label: "ahorradas por día", icon: "⏱️" },
+              { value: "98%", label: "satisfacción", icon: "⭐" },
+              { value: "24/7", label: "atención sin parar", icon: "💬" },
+              { value: "7 días", label: "para estar activo", icon: "⚡" },
+            ].map((s) => (
+              <div key={s.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 hover:bg-white/10 transition-colors">
+                <div className="text-2xl mb-2">{s.icon}</div>
+                <div className="text-3xl font-extrabold text-primary mb-1">{s.value}</div>
+                <div className="text-xs text-white/50 uppercase tracking-widest">{s.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Industries ticker */}
+        <div className="mt-14 pt-10 border-t border-white/10">
+          <p className="text-center text-white/40 text-xs uppercase tracking-widest mb-5">Funciona para cualquier rubro</p>
+          <div className="flex flex-wrap justify-center gap-3">
+            {["📦 Distribuidoras", "🏠 Inmobiliarias", "📋 Est. Contables", "🔧 Talleres", "🛒 Comercios", "🚚 Transporte", "🏗️ Constructoras", "🍽️ Gastronomía", "📣 Agencias"].map((r) => (
+              <span key={r} className="bg-white/5 border border-white/10 text-white/70 text-sm px-4 py-2 rounded-full">
+                {r}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function TrustBar() {
   const stats = [
     { value: "10+", label: "Años de trayectoria" },
@@ -212,6 +303,7 @@ function Home() {
         <Hero />
         <TrustBar />
         <Services />
+        <ClientumSection />
         <About />
         <Clients />
         <Partners />

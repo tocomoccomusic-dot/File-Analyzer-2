@@ -1,6 +1,8 @@
 import { useState } from "react";
-import { Navbar } from "@/components/layout/Navbar";
-import { Link } from "wouter";
+import { ClientumNavbar } from "@/components/layout/ClientumNavbar";
+import { Phone, MessageCircle, MapPin } from "lucide-react";
+import { SiFacebook, SiInstagram } from "react-icons/si";
+import { Linkedin } from "lucide-react";
 
 const ticker = [
   "+500 PyMEs confían en Clientum",
@@ -230,7 +232,7 @@ export default function Clientum() {
 
   return (
     <div className="min-h-screen bg-white font-sans">
-      <Navbar />
+      <ClientumNavbar />
 
       {/* Ticker */}
       <div className="bg-primary text-white text-xs font-semibold overflow-hidden whitespace-nowrap py-2">
@@ -327,7 +329,7 @@ export default function Clientum() {
       </section>
 
       {/* Solution */}
-      <section className="py-20 bg-white">
+      <section id="soluciones" className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-14">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">La Solución</span>
@@ -351,7 +353,7 @@ export default function Clientum() {
       </section>
 
       {/* ROI Calculator */}
-      <section className="py-20 bg-gray-50">
+      <section id="calculadora" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-12">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">Calculadora de ROI</span>
@@ -478,7 +480,7 @@ export default function Clientum() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-gray-50">
+      <section id="planes" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-14">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">Planes</span>
@@ -561,7 +563,7 @@ export default function Clientum() {
       </section>
 
       {/* Partners */}
-      <section className="py-20 bg-secondary text-white">
+      <section id="partners" className="py-20 bg-secondary text-white">
         <div className="container mx-auto px-4 md:px-6">
           <div className="text-center mb-14">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">Programa de Alianzas</span>
@@ -693,7 +695,7 @@ export default function Clientum() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-white">
+      <section id="faq" className="py-20 bg-white">
         <div className="container mx-auto px-4 md:px-6 max-w-3xl">
           <div className="text-center mb-12">
             <span className="text-primary font-semibold text-sm uppercase tracking-widest">FAQ</span>
@@ -776,12 +778,106 @@ export default function Clientum() {
         </div>
       </section>
 
-      {/* Back link */}
-      <div className="bg-gray-50 py-8 text-center">
-        <Link href="/" className="text-primary font-semibold hover:underline text-sm">
-          ← Volver al inicio de Viaweb
-        </Link>
-      </div>
+      {/* Footer */}
+      <footer className="bg-secondary text-white pt-16 pb-8">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
+            <div>
+              <span className="text-2xl font-extrabold tracking-tighter text-white">
+                Client<span className="text-primary">um</span>
+              </span>
+              <p className="mt-4 text-sm text-white/60 leading-relaxed">
+                IA para PyMEs argentinas. Automatizá la atención al cliente, generá presupuestos y gestioná tus leads con IA.
+              </p>
+              <div className="flex gap-4 mt-6">
+                <a href="https://www.facebook.com/viawebsocial" target="_blank" rel="noreferrer" className="text-white/50 hover:text-primary transition-colors" aria-label="Facebook">
+                  <SiFacebook className="h-5 w-5" />
+                </a>
+                <a href="https://www.instagram.com/viawebsocial/" target="_blank" rel="noreferrer" className="text-white/50 hover:text-primary transition-colors" aria-label="Instagram">
+                  <SiInstagram className="h-5 w-5" />
+                </a>
+                <a href="https://www.linkedin.com/company/viawebsocial" target="_blank" rel="noreferrer" className="text-white/50 hover:text-primary transition-colors" aria-label="LinkedIn">
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Producto</h4>
+              <ul className="space-y-3">
+                {[
+                  { name: "Chatbot WhatsApp IA", href: "#soluciones" },
+                  { name: "CRM Inteligente", href: "#soluciones" },
+                  { name: "Calculadora de ROI", href: "#calculadora" },
+                  { name: "Planes y Precios", href: "#planes" },
+                  { name: "Programa de Partners", href: "#partners" },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <a href={item.href} className="text-sm text-white/60 hover:text-primary transition-colors">
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Empresa</h4>
+              <ul className="space-y-3">
+                {[
+                  { name: "Sobre Clientum", href: "#vision" },
+                  { name: "Casos de éxito", href: "#casos" },
+                  { name: "FAQ", href: "#faq" },
+                  { name: "Viaweb (empresa)", href: "https://viaweb.net.ar", ext: true },
+                  { name: "Blog", href: "https://viaweb.net.ar/blog/", ext: true },
+                ].map((item) => (
+                  <li key={item.name}>
+                    <a href={item.href} target={"ext" in item && item.ext ? "_blank" : undefined} rel={"ext" in item && item.ext ? "noreferrer" : undefined} className="text-sm text-white/60 hover:text-primary transition-colors">
+                      {item.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Contacto</h4>
+              <ul className="space-y-4">
+                <li className="flex items-start gap-3">
+                  <Phone className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <a href="tel:+5492984510883" className="text-sm text-white/60 hover:text-primary transition-colors">
+                    +54 9 2984 51-0883
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MessageCircle className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <a href="https://wa.me/5492984510883" target="_blank" rel="noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
+                    WhatsApp
+                  </a>
+                </li>
+                <li className="flex items-start gap-3">
+                  <MapPin className="h-4 w-4 text-primary mt-0.5 shrink-0" />
+                  <span className="text-sm text-white/60">Patagonia, Argentina</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+            <p className="text-xs text-white/40">
+              &copy; {new Date().getFullYear()} Clientum · by Viaweb. Todos los derechos reservados.
+            </p>
+            <div className="flex gap-6">
+              <a href="/terminos-de-uso" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+                Términos de Uso
+              </a>
+              <a href="/privacidad" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+                Política de Privacidad
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }

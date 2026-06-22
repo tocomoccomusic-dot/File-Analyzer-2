@@ -13,6 +13,7 @@ import Ecommerce from "@/pages/ecommerce";
 import Emarketing from "@/pages/emarketing";
 import Calidad from "@/pages/calidad";
 import Clientum from "@/pages/clientum";
+
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -351,7 +352,8 @@ function Home() {
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={Clientum} />
+      <Route path="/clientum" component={Clientum} />
       <Route path="/terminos-de-uso" component={TerminosDeUso} />
       <Route path="/privacidad" component={Privacidad} />
       <Route path="/historia" component={Historia} />

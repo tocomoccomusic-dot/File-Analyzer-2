@@ -1211,6 +1211,132 @@ export default function Clientum() {
         </div>
       </section>
 
+      {/* ── Portal de Clientes ── */}
+      <section id="portal" className="py-20 bg-white">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-14 items-center max-w-5xl mx-auto">
+            {/* Left */}
+            <div>
+              <span className="inline-block bg-primary/10 border border-primary/20 text-primary text-xs font-bold px-3 py-1 rounded-full mb-5 uppercase tracking-widest">
+                Incluido en tu plan
+              </span>
+              <h2 className="text-3xl md:text-4xl font-extrabold text-secondary mb-5 leading-tight">
+                Tu Portal de Clientes,<br />
+                <span className="text-primary">siempre disponible.</span>
+              </h2>
+              <p className="text-gray-500 mb-8 leading-relaxed">
+                Cada cliente de Clientum accede a su propio portal privado con todo centralizado — facturas, tickets de soporte, estado de suscripción y más. Sin llamadas, sin emails. Todo en un solo lugar.
+              </p>
+              <ul className="space-y-4 mb-8">
+                {[
+                  { icon: "📄", title: "Facturas y pagos", desc: "Descargá tus comprobantes y revisá el historial de facturación en cualquier momento." },
+                  { icon: "🎫", title: "Tickets de soporte", desc: "Abrí y seguí el estado de tus consultas técnicas sin necesidad de llamar." },
+                  { icon: "📦", title: "Tus productos activos", desc: "Mirá qué servicios tenés contratados, con detalles de configuración y estado." },
+                  { icon: "🎧", title: "Acceso a soporte directo", desc: "Chat con nuestro equipo directamente desde el portal, con historial completo." },
+                ].map((f) => (
+                  <li key={f.title} className="flex items-start gap-4">
+                    <span className="text-2xl shrink-0 mt-0.5">{f.icon}</span>
+                    <div>
+                      <p className="font-bold text-secondary text-sm">{f.title}</p>
+                      <p className="text-gray-400 text-sm">{f.desc}</p>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/portal"
+                className="inline-flex items-center gap-2 bg-secondary text-white font-bold px-7 py-3.5 rounded-full text-sm hover:bg-secondary/90 transition-all hover:-translate-y-0.5 shadow-md"
+              >
+                🔐 Acceder a mi portal
+              </a>
+            </div>
+
+            {/* Right — Portal mockup */}
+            <div className="relative">
+              <div className="bg-gray-900 rounded-2xl overflow-hidden shadow-2xl border border-white/5">
+                {/* Browser bar */}
+                <div className="bg-gray-800 px-4 py-2.5 flex items-center gap-3">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
+                    <div className="w-3 h-3 rounded-full bg-green-500/60" />
+                  </div>
+                  <div className="flex-1 bg-gray-700 rounded-md px-3 py-1 text-[10px] text-white/30">
+                    clientum.com.ar/portal/dashboard
+                  </div>
+                </div>
+                {/* Portal layout */}
+                <div className="flex" style={{ minHeight: 340 }}>
+                  {/* Sidebar */}
+                  <div className="w-44 bg-[#1e2739] p-3 flex flex-col gap-1 shrink-0">
+                    <div className="flex items-center gap-2 px-2 py-3 mb-2">
+                      <div className="w-6 h-6 rounded-md bg-primary flex items-center justify-center text-white text-[9px] font-bold shrink-0">C</div>
+                      <span className="text-white text-xs font-bold">Client<span className="text-primary">um</span></span>
+                    </div>
+                    {[
+                      { label: "Inicio", active: true },
+                      { label: "Productos", active: false },
+                      { label: "Tickets", active: false },
+                      { label: "Facturación", active: false },
+                      { label: "Soporte", active: false },
+                    ].map((item) => (
+                      <div
+                        key={item.label}
+                        className={`px-2 py-1.5 rounded-lg text-[10px] font-medium ${
+                          item.active
+                            ? "bg-primary/15 text-primary border border-primary/20"
+                            : "text-white/40"
+                        }`}
+                      >
+                        {item.label}
+                      </div>
+                    ))}
+                    <div className="mt-auto pt-3 border-t border-white/10">
+                      <div className="px-2 py-1.5 text-[10px] text-white/30">← Volver al sitio</div>
+                    </div>
+                  </div>
+                  {/* Content */}
+                  <div className="flex-1 bg-gray-50 p-4">
+                    <p className="text-secondary font-bold text-sm mb-4">Panel General</p>
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {[
+                        { label: "Suscripción", value: "Plan Pro", color: "text-green-600" },
+                        { label: "Vencimiento", value: "15 Jul 2026", color: "text-secondary" },
+                        { label: "Tickets abiertos", value: "2", color: "text-yellow-600" },
+                        { label: "Facturas pend.", value: "0", color: "text-green-600" },
+                      ].map((k) => (
+                        <div key={k.label} className="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
+                          <p className="text-[9px] text-gray-400 uppercase tracking-wide">{k.label}</p>
+                          <p className={`font-bold text-sm ${k.color}`}>{k.value}</p>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="bg-white rounded-xl p-3 shadow-sm border border-gray-100">
+                      <p className="text-[10px] font-semibold text-secondary mb-2">Actividad reciente</p>
+                      {[
+                        { text: "Factura Junio disponible", time: "Hoy", dot: "bg-primary" },
+                        { text: "Ticket #1042 cerrado", time: "Ayer", dot: "bg-green-500" },
+                        { text: "Plan renovado automáticamente", time: "1 Jun", dot: "bg-blue-500" },
+                      ].map((a) => (
+                        <div key={a.text} className="flex items-center gap-2 py-1.5 border-b border-gray-50 last:border-0">
+                          <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${a.dot}`} />
+                          <span className="text-[10px] text-gray-600 flex-1">{a.text}</span>
+                          <span className="text-[9px] text-gray-400">{a.time}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* Floating badge */}
+              <div className="absolute -bottom-3 -right-3 bg-primary text-white text-[10px] font-bold px-3 py-2 rounded-xl shadow-lg">
+                🔐 Acceso privado por cliente
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Prueba de Campo ── */}
       <section id="casos" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4 md:px-6">

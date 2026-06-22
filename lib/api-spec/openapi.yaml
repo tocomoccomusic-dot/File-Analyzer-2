@@ -10,6 +10,8 @@ servers:
 tags:
   - name: health
     description: Health operations
+  - name: afip
+    description: AFIP token scheduler operations
 paths:
   /healthz:
     get:
@@ -24,6 +26,19 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+  /afip/scheduler-health:
+    get:
+      operationId: getAfipSchedulerHealth
+      tags: [afip]
+      summary: AFIP scheduler health
+      description: Returns the health status of the AFIP token renewal scheduler
+      responses:
+        "200":
+          description: Scheduler health status
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AfipSchedulerHealth"
 components:
   schemas:
     HealthStatus:
@@ -33,4 +48,35 @@ components:
           type: string
       required:
         - status
-
+    AfipSchedulerHealth:
+      type: object
+      required:
+        - isHealthy
+        - consecutiveFailures
+        - totalRenewed
+        - totalFailed
+      properties:
+        isHealthy:
+          type: boolean
+          description: True if the scheduler has not had consecutive failures above the alert threshold
+        lastRunAt:
+          type: ["string", "null"]
+          description: ISO timestamp of the last scheduler run
+        lastSuccessAt:
+          type: ["string", "null"]
+          description: ISO timestamp of the last successful token renewal
+        lastErrorAt:
+          type: ["string", "null"]
+          description: ISO timestamp of the last failed token renewal
+        lastErrorMessage:
+          type: ["string", "null"]
+          description: Error message from the last failed renewal attempt
+        consecutiveFailures:
+          type: integer
+          description: Number of consecutive failed renewal cycles
+        totalRenewed:
+          type: integer
+          description: Total tokens successfully renewed since server start
+        totalFailed:
+          type: integer
+          description: Total renewal failures since server start

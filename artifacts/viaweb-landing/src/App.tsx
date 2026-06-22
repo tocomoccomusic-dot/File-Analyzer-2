@@ -12,6 +12,7 @@ import ErpCrm from "@/pages/erp-crm";
 import Ecommerce from "@/pages/ecommerce";
 import Emarketing from "@/pages/emarketing";
 import Calidad from "@/pages/calidad";
+import Clientum from "@/pages/clientum";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -57,10 +58,10 @@ function Footer() {
             <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Servicios</h4>
             <ul className="space-y-3">
               {[
-                { name: "Implementación ERP/CRM", href: "https://viaweb.net.ar/implementaciones-erp-crm/", ext: true },
-                { name: "Desarrollo Web & E-commerce", href: "https://viaweb.net.ar/desarrollo-web-ecommerce/", ext: true },
-                { name: "SEO & SEM", href: "https://viaweb.net.ar/seo-sem-reportes/", ext: true },
-                { name: "Productos y planes", href: "https://viaweb.net.ar/productos/", ext: true },
+                { name: "Clientum · IA para PyMEs", href: "/clientum", ext: false },
+                { name: "Implementación ERP/CRM", href: "/erp-crm", ext: false },
+                { name: "Desarrollo Web & E-commerce", href: "/ecommerce", ext: false },
+                { name: "E-Marketing", href: "/emarketing", ext: false },
                 { name: "Soporte técnico", href: "https://viaweb.tawk.help/", ext: true },
               ].map((item) => (
                 <li key={item.name}>
@@ -238,6 +239,7 @@ function Router() {
       <Route path="/ecommerce" component={Ecommerce} />
       <Route path="/emarketing" component={Emarketing} />
       <Route path="/calidad" component={Calidad} />
+      <Route path="/clientum" component={Clientum} />
       <Route component={NotFound} />
     </Switch>
   );

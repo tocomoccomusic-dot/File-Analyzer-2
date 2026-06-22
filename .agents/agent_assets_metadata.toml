@@ -1,0 +1,14 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "v10PQZHRqnVY1Vi8GWKkH"
+uri = "file://artifacts/viaweb-landing/public/hero-bg.png"
+type = "image"
+title = "Hero abstract tech background"
+
+[[generated]]
+id = "7Mhh4lxFKM6fxUngtX-Tw"
+uri = "file://artifacts/viaweb-landing/public/about-office.png"
+type = "image"
+title = "About office setting"

@@ -108,7 +108,7 @@ export function Clients() {
 
               {/* Text */}
               <p className="text-sm text-secondary/70 leading-relaxed flex-1 italic">
-                "{t.text}"
+                &ldquo;{t.text}&rdquo;
               </p>
 
               {/* Author */}
@@ -143,9 +143,7 @@ export function Clients() {
             </p>
           </div>
           <a
-            href="https://viaweb.net.ar/clientes-2/"
-            target="_blank"
-            rel="noreferrer"
+            href="/clientes"
             className="shrink-0 inline-flex items-center gap-2 bg-primary text-white font-bold px-8 py-4 rounded-full text-sm shadow-xl shadow-primary/30 hover:bg-primary/90 transition-all whitespace-nowrap"
           >
             Ver todos los clientes →

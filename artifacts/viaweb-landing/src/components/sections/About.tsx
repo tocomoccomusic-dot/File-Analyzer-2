@@ -31,7 +31,7 @@ export function About() {
             <p className="text-secondary/60 leading-relaxed mb-8">
               Nuestro diferencial es el acompañamiento cercano: no somos una empresa impersonal. Conocemos a nuestros clientes, entendemos su negocio y diseñamos soluciones que realmente funcionan.
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-3 mb-8">
               {highlights.map((item) => (
                 <li key={item} className="flex items-center gap-3">
                   <CheckCircle2 className="h-5 w-5 text-primary shrink-0" />
@@ -39,6 +39,12 @@ export function About() {
                 </li>
               ))}
             </ul>
+            <a
+              href="/historia"
+              className="inline-flex items-center gap-2 bg-primary text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-primary/90 transition-all shadow-md hover:-translate-y-0.5"
+            >
+              Conocé nuestra historia →
+            </a>
           </motion.div>
 
           {/* Right: stat cards */}

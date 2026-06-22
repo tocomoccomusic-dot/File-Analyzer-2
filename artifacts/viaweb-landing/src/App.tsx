@@ -174,6 +174,35 @@ function CtaSection() {
   );
 }
 
+function CalidadSection() {
+  return (
+    <section className="py-16 bg-white border-t border-gray-100">
+      <div className="container mx-auto px-4 md:px-6">
+        <div className="rounded-2xl bg-gray-50 border border-gray-100 p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+          <div className="text-5xl shrink-0">🏅</div>
+          <div className="flex-1">
+            <span className="text-xs font-bold text-primary uppercase tracking-widest">Calidad</span>
+            <h3 className="text-2xl md:text-3xl font-extrabold text-secondary mt-1 mb-3">
+              Comprometidos con la excelencia
+            </h3>
+            <p className="text-secondary/60 text-sm leading-relaxed max-w-xl">
+              Nuestra política de calidad garantiza procesos de implementación rigurosos, soporte
+              continuo y mejora constante en cada proyecto. Cada entrega cumple los estándares
+              que nuestros clientes merecen.
+            </p>
+          </div>
+          <a
+            href="/calidad"
+            className="shrink-0 inline-flex items-center gap-2 bg-secondary text-white font-bold px-6 py-3 rounded-full text-sm hover:bg-secondary/80 transition-all whitespace-nowrap"
+          >
+            Ver política de calidad →
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function ClientumSection() {
   return (
     <section className="py-20 bg-secondary text-white overflow-hidden relative">
@@ -307,6 +336,7 @@ function Home() {
         <About />
         <Clients />
         <Partners />
+        <CalidadSection />
         <Pricing />
         <Blog />
         <Contact />

@@ -4,6 +4,14 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import TerminosDeUso from "@/pages/terminos-de-uso";
+import Privacidad from "@/pages/privacidad";
+import Historia from "@/pages/historia";
+import PartnersPage from "@/pages/partners";
+import Clientes from "@/pages/clientes";
+import ErpCrm from "@/pages/erp-crm";
+import Ecommerce from "@/pages/ecommerce";
+import Emarketing from "@/pages/emarketing";
+import Calidad from "@/pages/calidad";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -68,14 +76,14 @@ function Footer() {
             <h4 className="font-bold text-white mb-4 text-sm uppercase tracking-widest">Empresa</h4>
             <ul className="space-y-3">
               {[
-                { name: "Historia", href: "https://viaweb.net.ar/historia/", ext: true },
-                { name: "Nuestros Clientes", href: "https://viaweb.net.ar/clientes-2/", ext: true },
+                { name: "Historia", href: "/historia", ext: false },
+                { name: "Nuestros Clientes", href: "/clientes", ext: false },
+                { name: "Partners", href: "/partners", ext: false },
                 { name: "Portal de Clientes", href: "https://cloud.viaweb.net.ar/viaweb/custom/externalaccess/www/", ext: true },
-                { name: "Tickets de soporte", href: "https://viaweb.net.ar/tickets/", ext: true },
                 { name: "Blog", href: "https://viaweb.net.ar/blog/", ext: true },
               ].map((item) => (
                 <li key={item.name}>
-                  <a href={item.href} target="_blank" rel="noreferrer" className="text-sm text-white/60 hover:text-primary transition-colors">
+                  <a href={item.href} target={item.ext ? "_blank" : undefined} rel={item.ext ? "noreferrer" : undefined} className="text-sm text-white/60 hover:text-primary transition-colors">
                     {item.name}
                   </a>
                 </li>
@@ -114,7 +122,7 @@ function Footer() {
             <a href="/terminos-de-uso" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Términos de Uso
             </a>
-            <a href="https://viaweb.net.ar/politicas-de-privacidad/" target="_blank" rel="noreferrer" className="text-xs text-white/40 hover:text-white/70 transition-colors">
+            <a href="/privacidad" className="text-xs text-white/40 hover:text-white/70 transition-colors">
               Política de Privacidad
             </a>
           </div>
@@ -222,6 +230,14 @@ function Router() {
     <Switch>
       <Route path="/" component={Home} />
       <Route path="/terminos-de-uso" component={TerminosDeUso} />
+      <Route path="/privacidad" component={Privacidad} />
+      <Route path="/historia" component={Historia} />
+      <Route path="/partners" component={PartnersPage} />
+      <Route path="/clientes" component={Clientes} />
+      <Route path="/erp-crm" component={ErpCrm} />
+      <Route path="/ecommerce" component={Ecommerce} />
+      <Route path="/emarketing" component={Emarketing} />
+      <Route path="/calidad" component={Calidad} />
       <Route component={NotFound} />
     </Switch>
   );
